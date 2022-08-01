@@ -16,13 +16,13 @@ export default {
 </script>
 
 <template>
-  <div>
-    <router-link to="/posts">Back to all Posts</router-link>
-  </div>
   <div class="posts-show">
     <div class="container">
       <h1>{{ post.title }}</h1>
       <p>{{ post.body }}</p>
+      <router-link to="/posts">Back to all Posts</router-link>
+      |
+      <router-link v-bind:to="`/posts/${post.id}/edit`">Edit this Post</router-link>
     </div>
   </div>
 </template>
