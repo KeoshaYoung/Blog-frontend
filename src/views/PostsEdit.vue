@@ -46,7 +46,7 @@ export default {
       </p>
       <p>
         Image:
-        <input type="text" v-model="editPostParams.image_url" />
+        <input type="text" v-model="editPostParams.image" />
       </p>
       <input type="submit" value="Submit" />
     </form>
