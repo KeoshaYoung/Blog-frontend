@@ -7,6 +7,7 @@ export default {
       message: "New Post",
       newPostParams: {},
       errors: [],
+      status: "",
     };
   },
   methods: {
@@ -20,6 +21,7 @@ export default {
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
+          this.status = error.response.status;
         });
     },
   },
@@ -28,6 +30,7 @@ export default {
 
 <template>
   <div class="posts-new">
+    <img v-if="status" :src="`https://http.cat/${status}`" alt="" />
     <form v-on:submit.prevent="createPost()">
       <h1>{{ message }}</h1>
       <ul>
