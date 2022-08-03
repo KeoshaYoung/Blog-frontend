@@ -1,3 +1,21 @@
+<script>
+export default {
+  data: function () {
+    return {
+      isLoggedIn: false,
+      flashMessage: "You've successfully logged out!",
+    };
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt;
+      this.flashMessage = localStorage.getItem("flashMessage");
+      this.flashMessage = localStorage.removeItem("flashMessage");
+    },
+  },
+};
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -19,19 +37,19 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/posts">Posts</a>
+            <a v-if="isLoggedIn" class="nav-link" href="/posts">Posts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/posts/new">New Post</a>
+            <a v-if="isLoggedIn" class="nav-link" href="/posts/new">New Post</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signup">Signup</a>
+            <a v-if="!isLoggedIn" class="nav-link" href="/signup">Signup</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a v-if="!isLoggedIn" class="nav-link" href="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+            <a v-if="isLoggedIn" class="nav-link" href="/logout">Logout</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/contact">Contact Us</a>
@@ -40,7 +58,7 @@
       </div>
     </div>
   </nav>
-
+  <div v-if="flashMessage" v-on:click="flashMessage" class="alert alert-danger">{{ flashMessage }}</div>
   <router-view />
   <footer><h4>Follow Me</h4></footer>
 </template>
