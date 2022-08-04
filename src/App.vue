@@ -6,11 +6,16 @@ export default {
       flashMessage: "You've successfully logged out!",
     };
   },
+  methods: {
+    getUserId: function () {
+      return localStorage.getItem("user_id");
+    },
+  },
   watch: {
     $route: function () {
       this.isLoggedIn = !!localStorage.jwt;
       this.flashMessage = localStorage.getItem("flashMessage");
-      this.flashMessage = localStorage.removeItem("flashMessage");
+      localStorage.removeItem("flashMessage");
     },
   },
 };
@@ -58,7 +63,11 @@ export default {
       </div>
     </div>
   </nav>
-  <div v-if="flashMessage" v-on:click="flashMessage" class="alert alert-danger">{{ flashMessage }}</div>
+
+  <div v-if="flashMessage" class="alert alert-info">
+    {{ flashMessage }}
+  </div>
+
   <router-view />
   <footer><h4>Follow Me</h4></footer>
 </template>
