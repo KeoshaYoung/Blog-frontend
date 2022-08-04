@@ -1,5 +1,7 @@
 <script>
 import axios from "axios";
+import moment from "moment";
+
 export default {
   data: function () {
     return {
@@ -17,6 +19,9 @@ export default {
         console.log("All Posts:", this.posts);
       });
     },
+    relativeDate: function (date) {
+      return moment(date).fromNow();
+    },
   },
 };
 </script>
@@ -30,6 +35,7 @@ export default {
     <img :src="post.image" alt="" />
     <p>
       {{ post.body }}
+      Updated: {{ relativeDate(post.updated_at) }}
     </p>
   </div>
 </template>
